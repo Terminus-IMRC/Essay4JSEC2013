@@ -1,0 +1,95 @@
+\section{研究方法}
+この研究は2012年5月から2013年9月にかけて行った。
+また、並列計算ライブラリにはMPI(Message passing interface)を用いた。
+魔方陣の総数はどれほど多くなるか分からなかったので、
+オーバーフローしないよう、カウンターには
+GMP(GNU multiple precision arithmetic library)で提供されている
+{\tt mpz\_t}型の変数を使用した。
+
+\subsection{魔方陣の定義}
+$X$を自然数とする。縦$X$、横$X$の計$X^2$マスに整数が入れられているものを
+$X$次の陣とする。
+また、陣の内、$1$から$X^2$の数が1つずつ用いられており、
+縦の$X$列、横の$X$列、斜めの$2$列それぞれの合計が全て等しく
+式\ref{eqn:ms-oneline}($L$と定義する)となるものを$X$次の魔方陣とする。
+
+\begin{equation} \label{eqn:ms-oneline}
+L=\frac{1}{X} \sum_{i=1}^{X^2}i = \frac{1}{2}X(X^2+1)
+\end{equation}
+
+
+\subsection{アルゴリズムの改良}
+この方法では以下の手順を行った。
+\begin{enumerate}
+	\item 新しいアルゴリズムを考案する。
+	\item 仮計算なども行いながら、そのアルゴリズムの大まかな計算量を、正否判定する陣の数などから求める。
+	\item そのアルゴリズムをプログラム化し、一般のコンピュータやT2K-Tsukuba上で実行する。
+	\item プロファイリング等を用いて、オーバーヘッドとなっている処理等を分析し、
+ 	次のアルゴリズム作成に生かす。
+\end{enumerate}
+
+\subsection{一般のコンピュータでの実行}
+今回計算に用いた一般のコンピュータの性能を表\ref{tb:normalpc-perf}に示す。
+
+\begin{table}[htb]
+	\begin{center}
+	\begin{tabular}{|l|l|}
+\hline \hline
+\multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
+\hline \hline
+CPU & Intel Pentium 4 3.20GHz \\
+CPUコア数 & 2 core \\
+CPUピーク性能 & 6.40GFlops \\
+CPUメモリ & 3GB \\\hline
+	\end{tabular}
+	\end{center}
+	\caption{一般のコンピュータの性能概要}
+	\label{tb:normalpc-perf}
+\end{table}
+
+
+\subsection{T2K-Tsukubaの利用}
+T2K-Tsukubaとは、筑波大学に置かれているスーパーコンピュータの1つである。
+その性能を表\ref{tb:t2k-perf}に示す。
+
+\begin{table}[htb]
+	\begin{center}
+	\begin{tabular}{|l|l|l|}
+\hline \hline
+\multicolumn{1}{|c|}{区分} & \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
+\hline \hline
+計算ノード & CPU & quad-core Opteron 2.3GHz $\times$ 4台 \\
+& CPUコア数 & 16 core \\
+& CPUメモリ & 32GB \\\hline
+並列ネットワーク & ネットワーク & Infiniband 4$\times$DDR \\
+& 1本当たりのピーク性能(片方向) & 2GB/s \\
+& トポロジ & Fat-Tree \\\hline
+全体システム構成 & 総ノード数 & 648 \\
+& CPUピーク性能 & 95.4TFlops \\
+& ファイルシステム & 800TB(Lustre, RAID-6) \\\hline
+	\end{tabular}
+	\end{center}
+ 	\caption{T2K-Tsukubaの性能概要}
+	\label{tb:t2k-perf}
+\end{table}
+
+今回は、この研究のために学際開拓プログラムに申し込み、T2K-Tsukubaを利用させていただいた。
+
+T2K-Tsukubaでのプログラム実行の手順は以下の様になっている。
+\begin{enumerate}
+	\item ログインノードにSSH(Secure shell)を用いてログインする。
+	\item プログラムを{\tt mpicc}コマンドでコンパイルし、
+	実行ファイルを作成する。 \label{enum:howtouse-t2k:compile}
+	\item 以下の手順を行うシェルスクリプトを書き、{\tt qsub2}コマンドにて
+ 	ジョブをサブミットする。
+  	\begin{enumerate}
+   		\item プログラム実行に使用するノードの台数と実行可能最大時間
+     		(24時間以下)を指定する。
+   		\item 使用するノードをリストアップするスクリプトを
+     		実行する。
+       		\item {\tt mpirun\_rsh}コマンドでプログラム
+         	(手順\ref{enum:howtouse-t2k:compile}で作成した実行ファイル)
+          	を実行する。
+   	\end{enumerate}
+    	\item その後、ジョブは逐次自動実行される。
+\end{enumerate}

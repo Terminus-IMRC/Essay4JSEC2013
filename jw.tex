@@ -1,0 +1,43 @@
+\documentclass[a4j,11pt]{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{url}
+\title{魔方陣全解出力アルゴリズムの改良と \\ 超並列計算環境でのプログラム実行}
+\author{
+	茨城県立並木中等教育学校 4年 \\  杉崎 行優
+}
+\date{}
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+%do not count the surface page in 10 pages
+\setcounter{page}{0}
+
+%\tableofcontents
+%\listoffigures
+\newpage
+
+%For JSEC
+\def\thesection{\Alph{section}}
+\setcounter{section}{0}
+
+%\section{要旨、概要}
+%学校のPC室のシステムを利用して並列計算システムを構築した。
+%また、そのシステムの上でベンチマークソフトを動かし、システムの性能評価を行った。
+%その結果、計算によっては通信によるオーバーヘッドが見られた。
+%
+%現在は、初期段階のシステムを進化させ、Namiki Linuxと名付けた並列計算システムの開発を行っている。
+
+
+\input{2.aim}
+\input{3.howto}
+\input{4.result}
+\input{5.think}
+\input{6.todo}
+
+%Because it is for JSEC
+\input{8.thanks}
+\input{7.cf}
+
+%\input{9.pic}
+\end{document}
