@@ -6,15 +6,15 @@
 GMP(GNU multiple precision arithmetic library)で提供されている
 {\tt mpz\_t}型の変数を使用した。
 
-\subsection{魔方陣の定義}
+\subsection{用語・定数の定義}
 $X$を自然数とする。縦$X$、横$X$の計$X^2$マスに整数が入れられているものを
-$X$次の陣とする。
+「$X$次の陣」と呼ぶ。
 また、陣の内、$1$から$X^2$の数が1つずつ用いられており、
 縦の$X$列、横の$X$列、斜めの$2$列それぞれの合計が全て等しく
-式\ref{eqn:ms-oneline}($L$と定義する)となるものを$X$次の魔方陣とする。
+式\ref{eqn:ms-oneline}($L$と定義する)となるものを「$X$次の魔方陣」と呼ぶ。
 
 \begin{equation} \label{eqn:ms-oneline}
-L=\frac{1}{X} \sum_{i=1}^{X^2}i = \frac{1}{2}X(X^2+1)
+L=\sum_{i=1}^{X^2}i \div X = X(X^2+1) \div 2
 \end{equation}
 
 
@@ -30,6 +30,7 @@ L=\frac{1}{X} \sum_{i=1}^{X^2}i = \frac{1}{2}X(X^2+1)
 
 \subsection{一般のコンピュータでの実行}
 今回計算に用いた一般のコンピュータの性能を表\ref{tb:normalpc-perf}に示す。
+実行にはCPUの方コアのみを用いた。
 
 \begin{table}[htb]
 	\begin{center}
@@ -40,7 +41,10 @@ L=\frac{1}{X} \sum_{i=1}^{X^2}i = \frac{1}{2}X(X^2+1)
 CPU & Intel Pentium 4 3.20GHz \\
 CPUコア数 & 2 core \\
 CPUピーク性能 & 6.40GFlops \\
-CPUメモリ & 3GB \\\hline
+CPUメモリ & 3GB \\
+OS & Linux 3.2.46 \\
+コンパイラ & GCC 4.7.2 \\
+\hline
 	\end{tabular}
 	\end{center}
 	\caption{一般のコンピュータの性能概要}
@@ -60,7 +64,11 @@ T2K-Tsukubaとは、筑波大学に置かれているスーパーコンピュー
 \hline \hline
 計算ノード & CPU & quad-core Opteron 2.3GHz $\times$ 4台 \\
 & CPUコア数 & 16 core \\
-& CPUメモリ & 32GB \\\hline
+& CPUメモリ & 32GB \\
+& OS & Linux 2.6.18 \\
+& コンパイラ & GCC 4.1.2 \\
+& MPIソフトウェア & MVAPICH2 1.4.1 \\
+\hline
 並列ネットワーク & ネットワーク & Infiniband 4$\times$DDR \\
 & 1本当たりのピーク性能(片方向) & 2GB/s \\
 & トポロジ & Fat-Tree \\\hline
