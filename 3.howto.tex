@@ -1,5 +1,9 @@
 \section{研究方法}
 この研究は2012年5月から2013年9月にかけて行った。
+今回は魔方陣の全解を探求し出力するプログラムを開発した。
+アルゴリズムに関しては、総当たりより効率のよい計算手法ものは
+発見されていないので、総当たりの手法を用いた。
+
 また、並列計算ライブラリにはMPI(Message passing interface)を用いた。
 魔方陣の総数はどれほど多くなるか分からなかったので、
 オーバーフローしないよう、カウンターには
@@ -30,7 +34,6 @@ L=\sum_{i=1}^{X^2}i \div X = X(X^2+1) \div 2
 
 \subsection{一般のコンピュータでの実行}
 今回計算に用いた一般のコンピュータの性能を表\ref{tb:normalpc-perf}に示す。
-実行にはCPUの方コアのみを用いた。
 
 \begin{table}[htb]
 	\begin{center}
@@ -39,8 +42,8 @@ L=\sum_{i=1}^{X^2}i \div X = X(X^2+1) \div 2
 \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
 \hline \hline
 CPU & Intel Pentium 4 3.20GHz \\
-CPUコア数 & 2 core \\
-CPUピーク性能 & 6.40GFlops \\
+CPUコア数 & 2 cores \\
+CPUピーク性能 & 6.40GFLOPS \\
 CPUメモリ & 3GB \\
 OS & Linux 3.2.46 \\
 コンパイラ & GCC 4.7.2 \\
@@ -50,6 +53,8 @@ OS & Linux 3.2.46 \\
 	\caption{一般のコンピュータの性能概要}
 	\label{tb:normalpc-perf}
 \end{table}
+
+なお、実行にはCPUの方コアのみを用いた。
 
 
 \subsection{T2K-Tsukubaの利用}
@@ -63,7 +68,7 @@ T2K-Tsukubaとは、筑波大学に置かれているスーパーコンピュー
 \multicolumn{1}{|c|}{区分} & \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
 \hline \hline
 計算ノード & CPU & quad-core Opteron 2.3GHz $\times$ 4台 \\
-& CPUコア数 & 16 core \\
+& CPUコア数 & 16 cores \\
 & CPUメモリ & 32GB \\
 & OS & Linux 2.6.18 \\
 & コンパイラ & GCC 4.1.2 \\
@@ -72,8 +77,8 @@ T2K-Tsukubaとは、筑波大学に置かれているスーパーコンピュー
 並列ネットワーク & ネットワーク & Infiniband 4$\times$DDR \\
 & 1本当たりのピーク性能(片方向) & 2GB/s \\
 & トポロジ & Fat-Tree \\\hline
-全体システム構成 & 総ノード数 & 648 \\
-& CPUピーク性能 & 95.4TFlops \\
+全体システム構成 & 総ノード数 & 648台 \\
+& CPUピーク性能 & 95.4TFLOPS \\
 & ファイルシステム & 800TB(Lustre, RAID-6) \\\hline
 	\end{tabular}
 	\end{center}
@@ -82,6 +87,12 @@ T2K-Tsukubaとは、筑波大学に置かれているスーパーコンピュー
 \end{table}
 
 今回は、この研究のために学際開拓プログラムに申し込み、T2K-Tsukubaを利用させていただいた。
+一度に利用できる最大ノード数は32台となった。
+また、最大連続実行可能時間は24時間となっており、実行時間がこの時間を超えた場合、
+そのジョブは強制終了される。
+
+並列方式にはマスタ・ワーカー型並列を用いた。
+実行は全$16 \times 32 = 512$プロセスの内、1プロセスをマスタとしその他をワーカーとした。
 
 T2K-Tsukubaでのプログラム実行の手順は以下の様になっている。
 \begin{enumerate}
@@ -91,8 +102,8 @@ T2K-Tsukubaでのプログラム実行の手順は以下の様になっている
 	\item 以下の手順を行うシェルスクリプトを書き、{\tt qsub2}コマンドにて
  	ジョブをサブミットする。
   	\begin{enumerate}
-   		\item プログラム実行に使用するノードの台数と実行可能最大時間
-     		(24時間以下)を指定する。
+   		\item プログラム実行に使用するノードの台数と最大実行時間
+     		を指定する。
    		\item 使用するノードをリストアップするスクリプトを
      		実行する。
        		\item {\tt mpirun\_rsh}コマンドでプログラム
