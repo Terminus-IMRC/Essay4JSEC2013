@@ -1,8 +1,7 @@
 \section{研究方法}
 この研究は2012年5月から2013年9月にかけて行った。
 今回は魔方陣の全解を探求し出力するプログラムを開発した。
-アルゴリズムに関しては、総当たりより効率のよい計算手法ものは
-発見されていないので、総当たりの手法を用いた。
+アルゴリズムとしては総当たりを用い、その中で枝刈り法を改良した。
 
 また、並列計算ライブラリにはMPI(Message passing interface)を用いた。
 魔方陣の総数はどれほど多くなるか分からなかったので、
@@ -18,19 +17,22 @@ $X$を自然数とする。縦$X$、横$X$の計$X^2$マスに整数が入れら
 式\ref{eqn:ms-oneline}($L$と定義する)となるものを「$X$次の魔方陣」と呼ぶ。
 
 \begin{equation} \label{eqn:ms-oneline}
-L=\sum_{i=1}^{X^2}i \div X = X(X^2+1) \div 2
+L=\frac{1}{X} \sum_{i=1}^{X^2}i = \frac{1}{2} X(X^2+1)
 \end{equation}
 
 
 \subsection{アルゴリズムの改良}
 この方法では以下の手順を行った。
 \begin{enumerate}
-	\item 新しいアルゴリズムを考案する。
+	\item 効率のよい枝刈り法を考案する。
 	\item 仮計算なども行いながら、そのアルゴリズムの大まかな計算量を、正否判定する陣の数などから求める。
-	\item そのアルゴリズムをプログラム化し、一般のコンピュータやT2K-Tsukuba上で実行する。
-	\item プロファイリング等を用いて、オーバーヘッドとなっている処理等を分析し、
- 	次のアルゴリズム作成に生かす。
+	\item そのアルゴリズムをプログラム化し、一般のコンピュータ1台上で実行する。
+	\item 実行のプロファイリング等を用いて、冗長的な処理等を分析し、
+	 	次のアルゴリズム作成に生かす。
+	\item 最も効率のよいプログラムよかったプログラムを並列化し、T2K-Tsukuba上で実行する。
+	\item 実行時の処理性能低下などを分析し、原因を分析する。
 \end{enumerate}
+
 
 \subsection{一般のコンピュータでの実行}
 今回計算に用いた一般のコンピュータの性能を表\ref{tb:normalpc-perf}に示す。
@@ -41,7 +43,7 @@ L=\sum_{i=1}^{X^2}i \div X = X(X^2+1) \div 2
 \hline \hline
 \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
 \hline \hline
-CPU & Intel Pentium 4 3.20GHz \\
+CPU & Intel Pentium 4 \ 3.20GHz \\
 CPUコア数 & 2 cores \\
 CPUピーク性能 & 6.40GFLOPS \\
 CPUメモリ & 3GB \\
@@ -54,7 +56,7 @@ OS & Linux 3.2.46 \\
 	\label{tb:normalpc-perf}
 \end{table}
 
-なお、実行にはCPUの方コアのみを用いた。
+なお、実行には2CPUコアのうち1CPUコアのみを用いた。
 
 
 \subsection{T2K-Tsukubaの利用}
