@@ -3,7 +3,7 @@
 \subsection{アルゴリズムの開発・改良と一般のコンピュータ1台での実行}
 \subsubsection{利用した一般のコンピュータの性能}
 \subsubsection{第一次アルゴリズム}
-このアルゴリズムでは完全総当たりの方法を用いた。
+第一次アルゴリズムは完全総当たりの方法で、
 具体的には、1つ1つのマスに$1$から$n^2$の数を順に入れていき、全てのマスを埋めたら
 正否を判定するというものだ。
 最終的に判定される陣数は$(X^2)^{(X^2)}$個である。
@@ -24,7 +24,7 @@
 
 
 \subsubsection{第二次アルゴリズム}
-このアルゴリズムでは第一次アルゴリズムで挙げられた
+第二次アルゴリズムは第一次アルゴリズムで挙げられた
 「陣の中に同じ数字が代入される場合がある」
 という点を
 解決するために、既に代入されている数字を陣に代入しないようにした。
@@ -41,8 +41,8 @@
 \end{equation}
 
 \subsubsection{第三次アルゴリズム}
-このアルゴリズムでは動的計画法を用いた。
-具体的には、あらかじめ合計が$L$である要素$X$の数列(正和列と呼ぶ)を作成しておき、
+第三次アルゴリズムは動的計画法を用い、具体的には、
+あらかじめ合計が$L$である要素$X$の数列(正和列と呼ぶ)を作成しておき、
 それらの中から$X$個選び、それぞれを陣の横列として代入するというものだ。
 正和列は順列で表される。
 また、各$X$における正和列の個数$E$を表\ref{tab:ple-each-X}に示す。
@@ -77,7 +77,7 @@
 \end{equation}
 
 \subsubsection{第四次アルゴリズム}
-このアルゴリズムでは、第一次アルゴリズムのように陣に数字を埋めていく際、
+第四次アルゴリズムは、第一次アルゴリズムのように陣に数字を埋めていく際、
 列中の$X-1$個の数が埋まれば、残りの$1$マスは$L$からそれらの数の合計を引くことにより
 求められることを利用した。
 
@@ -98,10 +98,10 @@
 \hline \hline
 \multicolumn{1}{|c|}{$X$} & \multicolumn{1}{|c|}{$A$} & \multicolumn{1}{|c|}{$_{X^2} \mathrm{P} _A$} \\
 \hline \hline
-$3$ & $3$ & TODO \\
-$4$ & $8$ & TODO \\
-$5$ & $14$ & TODO \\
-$6$ & $23$ & 関数電卓を家に忘れてしまいました。 \\
+$3$ & $3$ & $5.0 \times 10^2$ \\
+$4$ & $8$ & $5.2 \times 10^8$ \\
+$5$ & $14$ & $3.9 \times 10^{17}$ \\
+$6$ & $23$ & $6.0 \times 10^{31}$ \\
 \hline
 	\end{tabular}
 	\end{center}
@@ -110,10 +110,26 @@ $6$ & $23$ & 関数電卓を家に忘れてしまいました。 \\
 \end{table}
 
 このアルゴリズムをプログラム化し、一般のコンピュータで実行したところ、
-実行時間は3次の場合約0.0005秒、4次の場合約0.0012秒、5次の場合約217時間となった。
+実行時間は3次の場合約0.05秒、4次の場合約0.12秒、5次の場合約217時間となった。
 
 ここで表\ref{tab:bohemian-rhapsody}に、3次の場合に対する4次の場合、4次の場合に対する5次の場合、3次の場合に対する5次の場合
 それぞれの理想実行時間と実際の実行時間の比を示す。
+
+\begin{table}[htb]
+	\begin{center}
+	\begin{tabular}{|l||r|r|}
+\hline
+& \multicolumn{1}{|c|}{理想実行時間の比} & \multicolumn{1}{|c|}{実際の実行時間の比} \\
+\hline\hline
+3次の場合に対する4次の場合 & $1.0 \times 10^6$  & $2.4 \times 10^0$ \\\hline
+4次の場合に対する5次の場合 & $7.5 \times 10^8$  & $6.5 \times 10^6$ \\\hline
+3次の場合に対する5次の場合 & $7.7 \times 10^{14}$  & $1.6 \times 10^7$ \\\hline
+	\end{tabular}
+	\end{center}
+	\caption{理想実行時間の比と実際の実行時間の比}
+	\label{tab:bohemian-rhapsody}
+\end{table}
+
 %しかし、
 %式\ref{eqn:prog4-exectime-3-vs-4-ideal}(3次の場合と4次の場合の理想実行時間の比)・
 %式\ref{eqn:prog4-exectime-3-vs-4-rhapsody}(3次の場合と4次の場合の実際の実行時間の比)・
@@ -125,38 +141,38 @@ $6$ & $23$ & 関数電卓を家に忘れてしまいました。 \\
 これは、3次と4次の場合の実行時間がとても短く、
 時間計測で誤差が発生してしまったことが原因だと考えられる。
 
-\begin{eqnarray}
-\label{eqn:prog4-exectime-3-vs-4-ideal}
-_{3^2} \mathrm{P} _3 : _{16} \mathrm{P} _8 & \approx & TMP \\
-\label{eqn:prog4-exectime-3-vs-4-rhapsody}
-0.0005 : 0.0012 & \approx & TMP \\
-\label{eqn:prog4-exectime-4-vs-5-ideal}
- \\
-\label{eqn:prog4-exectime-4-vs-5-rhapsody}
-0.0012 : 217 \times 60 \times 60 & \approx & TMP \\
-\label{eqn:prog4-exectime-3-vs-5-ideal}
-TMP \\
-\label{eqn:prog4-exectime-3-vs-5-rhapsody}
-0.0005 : 217 \times 60 \times 60 & \approx & TMP
-\end{eqnarray}
+%\begin{eqnarray}
+%\label{eqn:prog4-exectime-3-vs-4-ideal}
+%_{3^2} \mathrm{P} _3 : _{16} \mathrm{P} _8 & \approx & TMP \\
+%\label{eqn:prog4-exectime-3-vs-4-rhapsody}
+%0.0005 : 0.0012 & \approx & TMP \\
+%\label{eqn:prog4-exectime-4-vs-5-ideal}
+% \\
+%\label{eqn:prog4-exectime-4-vs-5-rhapsody}
+%0.0012 : 217 \times 60 \times 60 & \approx & TMP \\
+%\label{eqn:prog4-exectime-3-vs-5-ideal}
+%TMP \\
+%\label{eqn:prog4-exectime-3-vs-5-rhapsody}
+%0.0005 : 217 \times 60 \times 60 & \approx & TMP
+%\end{eqnarray}
 
 このプログラムは、今までのプログラムでは不可能だった4次や5次の魔方陣の全解を
 探求したという面で優秀である。
 
 このプログラムで6次の場合の計算をすると、
 5次の実行時間をベースに考えると式\ref{eqn:prog4-exectime-6}より
-実行に約秒、つまり約かかることになる。
+実行に約$1.4 \times 10^{20}$秒、つまり約$4.7 \times 10^{12}$かかることになる。
 よって、このプログラムは6次以上の場合、現実的な時間で実行終了しないので、
 実際に実行はしなかった。
 
 \begin{equation} \label{eqn:prog4-exectime-6}
-(217 \times 60 \times 60) \times (_{36} \mathrm{P} _{23} \div _{25} \mathrm{P} _{14}) \approx 
+(217 \times 60 \times 60) \times (_{36} \mathrm{P} _{23} \div _{25} \mathrm{P} _{14}) \approx  1.2 \times 10^{20}
 \end{equation}
 
 また、このプログラムでは、数字が既に代入されているか否かを判断する際に
 チェックリストのようなものを使用していた。
-しかし、実行の際には「既に代入されているか」ではなく
-「どの数字を代入すればよいか」という情報だけを知ればよい。
+しかし、実行の際には「その数字が既に代入されているか」ではなく
+「次にどの数字を代入すればよいか」という情報だけを知ればよい。
 よって、それに適合している双方向リストをチェックリストの代わりに使用すれば
 実行時間がさらに短くなると考えられる。
 
@@ -167,7 +183,7 @@ TMP \\
 \begin{enumerate}
 \item マスタが$N$段目($N \in \mathbb{N}, \ N \leq A$)
 	まで数字の総当たりをする。
-\item そのうちの1つのパターンを1つの暇なワーカに配る。 \label{enum:master-sending}
+\item そのうちの1つのパターンを1つの暇なワーカーに配る。 \label{enum:master-sending}
 \item ワーカーがそれを受け取る。 \label{enum:worker-receiving}
 \item そのワーカーが$N+1$段目からの数字を総当たりする。
 	マスタは手順\ref{enum:master-sending}から繰り返す。
