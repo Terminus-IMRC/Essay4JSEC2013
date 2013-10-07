@@ -39,7 +39,7 @@ OS & Linux 3.2.46 \\
 よって、4次以上の場合は現実的な時間では実行終了しないので、実際に実行はしなかった。
 
 \begin{equation} \label{eqn:prog1-exectime4}
-20 \times ((4^2)^{(4^2)} \div (3^2)^{(3^2)}) \approx 1.4 \times 10^{12}
+20 \times \frac{(4^2)^{(4^2)}}{(3^2)^{(3^2)}} \approx 1.4 \times 10^{12}
 \end{equation}
 
 また、このアルゴリズムでは$1$から$X^2$の全ての候補をそれぞれのマスに代入しているが、
@@ -61,13 +61,14 @@ OS & Linux 3.2.46 \\
 よって、4次以上の場合は現実的な時間では実行終了しないので、実際に実行はしなかった。
 
 \begin{equation} \label{eqn:prog1.5-exectime4}
-0.17 \times (4^2! \div 3^2!) \approx 9.8 \times 10^6
+0.17 \times \frac{4^2!}{3^2!} \approx 9.8 \times 10^6
 \end{equation}
 
 \subsubsection{第三次アルゴリズム}
-第三次アルゴリズムは動的計画法を用い、具体的には、
+第三次アルゴリズムでは動的計画法を用いた。
+具体的には、
 あらかじめ合計が$L$である要素$X$の数列(正和列と呼ぶ)を作成しておき、
-それらの中から$X$個選び、それぞれを陣の横列として代入するというものだ。
+それらの中から$X$個選び、それぞれを陣の横列として代入するというものである。
 正和列は順列で表される。
 また、各$X$における正和列の個数$E$を表\ref{tab:ple-each-X}に示す。
 最終的に判定される陣数は$_E \mathrm{P} _X$個である。
@@ -97,7 +98,7 @@ OS & Linux 3.2.46 \\
 4次以上の場合は現実的な時間で実行終了しないので、実際に実行はしなかった。
 
 \begin{equation} \label{eqn:prog2-exectime4}
-0.05 \times (_{2064} \mathrm{P} _4 \div _{48} \mathrm{P} _3) \approx 8.7 \times 10^6
+0.05 \times \frac{_{2064} \mathrm{P} _4}{_{48} \mathrm{P} _3} \approx 8.7 \times 10^6
 \end{equation}
 
 \subsubsection{第四次アルゴリズム}
@@ -191,7 +192,7 @@ $6$ & $23$ & $6.0 \times 10^{31}$ \\
 実際に実行はしなかった。
 
 \begin{equation} \label{eqn:prog4-exectime-6}
-(217 \times 60 \times 60) \times (_{36} \mathrm{P} _{23} \div _{25} \mathrm{P} _{14}) \approx  1.2 \times 10^{20}
+(217 \times 60 \times 60) \times \frac{_{36} \mathrm{P} _{23}}{_{25} \mathrm{P} _{14}} \approx  1.2 \times 10^{20}
 \end{equation}
 
 また、このプログラムでは、数字が既に代入されているか否かを判断する際に
