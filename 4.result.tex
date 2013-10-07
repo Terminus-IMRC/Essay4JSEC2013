@@ -2,6 +2,30 @@
 \section{得られた結果}
 \subsection{アルゴリズムの開発・改良と一般のコンピュータ1台での実行}
 \subsubsection{利用した一般のコンピュータの性能}
+今回計算に用いた一般のコンピュータの性能を表\ref{tb:normalpc-perf}に示す。
+
+\begin{table}[htb]
+	\begin{center}
+	\begin{tabular}{|l|l|}
+\hline \hline
+\multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
+\hline \hline
+CPU & Intel Pentium 4 \ 3.20GHz \\
+CPUコア数 & 2 cores \\
+CPUピーク性能 & 6.40GFLOPS \\
+CPUメモリ & 3GB \\
+OS & Linux 3.2.46 \\
+コンパイラ & GCC 4.7.2 \\
+\hline
+	\end{tabular}
+	\end{center}
+	\caption{一般のコンピュータの性能概要}
+	\label{tb:normalpc-perf}
+\end{table}
+
+なお、実行には2CPUコアのうち1CPUコアのみを用いた。
+
+
 \subsubsection{第一次アルゴリズム}
 第一次アルゴリズムは完全総当たりの方法で、
 具体的には、1つ1つのマスに$1$から$n^2$の数を順に入れていき、全てのマスを埋めたら
@@ -179,6 +203,36 @@ $6$ & $23$ & $6.0 \times 10^{31}$ \\
 
 
 \subsection{T2K-Tsukuba上での実行}
+\subsubsection{T"K-Tsukubaの性能}
+T2K-Tsukubaの性能を表\ref{tb:t2k-perf}に示す。
+
+\begin{table}[htb]
+	\begin{center}
+	\begin{tabular}{|l|l|l|}
+\hline \hline
+\multicolumn{1}{|c|}{区分} & \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
+\hline \hline
+計算ノード & CPU & quad-core Opteron 2.3GHz $\times$ 4台 \\
+& CPUコア数 & 16 cores \\
+& CPUメモリ & 32GB \\
+& OS & Linux 2.6.18 \\
+& コンパイラ & GCC 4.1.2 \\
+& MPIソフトウェア & MVAPICH2 1.4.1 \\
+\hline
+並列ネットワーク & ネットワーク & Infiniband 4$\times$DDR \\
+& 1本当たりのピーク性能(片方向) & 2GB/s \\
+& トポロジ & Fat-Tree \\\hline
+全体システム構成 & 総ノード数 & 648台 \\
+& CPUピーク性能 & 95.4TFLOPS \\
+& ファイルシステム & 800TB(Lustre, RAID-6) \\\hline
+	\end{tabular}
+	\end{center}
+ 	\caption{T2K-Tsukubaの性能概要}
+	\label{tb:t2k-perf}
+\end{table}
+
+
+\subsubsection{実行したプログラム}
 今回は第三次アルゴリズムのプログラムを5次の場合で並列実行した。
 プログラム内並列計算の手順を以下に示す。
 \begin{enumerate}
@@ -203,6 +257,8 @@ $N$の値が大きいほど多い。
 $N$の値が小さいほど問題を荒く分けているといえ、
 $N$の値が大きいほど問題を細かく分けているといえる。
 
+
+\subsubsection{プログラムの実行}
 プログラムは、$N$を1から14まで変化させ並列実行した。
 各$N$における実行時間のグラフを図\ref{pic:allN-time}に示す。
 24時間以内に実行が終了したのは$N$が3から8のときであった。

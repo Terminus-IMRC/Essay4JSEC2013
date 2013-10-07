@@ -34,59 +34,59 @@ L=\frac{1}{X} \sum_{i=1}^{X^2}i = \frac{1}{2} X(X^2+1)
 \end{enumerate}
 
 
-\subsection{一般のコンピュータ1台での実行}
-今回計算に用いた一般のコンピュータの性能を表\ref{tb:normalpc-perf}に示す。
-
-\begin{table}[htb]
-	\begin{center}
-	\begin{tabular}{|l|l|}
-\hline \hline
-\multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
-\hline \hline
-CPU & Intel Pentium 4 \ 3.20GHz \\
-CPUコア数 & 2 cores \\
-CPUピーク性能 & 6.40GFLOPS \\
-CPUメモリ & 3GB \\
-OS & Linux 3.2.46 \\
-コンパイラ & GCC 4.7.2 \\
-\hline
-	\end{tabular}
-	\end{center}
-	\caption{一般のコンピュータの性能概要}
-	\label{tb:normalpc-perf}
-\end{table}
-
-なお、実行には2CPUコアのうち1CPUコアのみを用いた。
+%\subsection{一般のコンピュータ1台での実行}
+%今回計算に用いた一般のコンピュータの性能を表\ref{tb:normalpc-perf}に示す。
+%
+%\begin{table}[htb]
+	%\begin{center}
+	%\begin{tabular}{|l|l|}
+%\hline \hline
+%\multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
+%\hline \hline
+%CPU & Intel Pentium 4 \ 3.20GHz \\
+%CPUコア数 & 2 cores \\
+%CPUピーク性能 & 6.40GFLOPS \\
+%CPUメモリ & 3GB \\
+%OS & Linux 3.2.46 \\
+%コンパイラ & GCC 4.7.2 \\
+%\hline
+	%\end{tabular}
+	%\end{center}
+	%\caption{一般のコンピュータの性能概要}
+	%\label{tb:normalpc-perf}
+%\end{table}
+%
+%なお、実行には2CPUコアのうち1CPUコアのみを用いた。
 
 
 \subsection{T2K-Tsukubaの利用}
 T2K-Tsukubaとは、筑波大学に置かれているスーパーコンピュータの1つである。
-その性能を表\ref{tb:t2k-perf}に示す。
-
-\begin{table}[htb]
-	\begin{center}
-	\begin{tabular}{|l|l|l|}
-\hline \hline
-\multicolumn{1}{|c|}{区分} & \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
-\hline \hline
-計算ノード & CPU & quad-core Opteron 2.3GHz $\times$ 4台 \\
-& CPUコア数 & 16 cores \\
-& CPUメモリ & 32GB \\
-& OS & Linux 2.6.18 \\
-& コンパイラ & GCC 4.1.2 \\
-& MPIソフトウェア & MVAPICH2 1.4.1 \\
-\hline
-並列ネットワーク & ネットワーク & Infiniband 4$\times$DDR \\
-& 1本当たりのピーク性能(片方向) & 2GB/s \\
-& トポロジ & Fat-Tree \\\hline
-全体システム構成 & 総ノード数 & 648台 \\
-& CPUピーク性能 & 95.4TFLOPS \\
-& ファイルシステム & 800TB(Lustre, RAID-6) \\\hline
-	\end{tabular}
-	\end{center}
- 	\caption{T2K-Tsukubaの性能概要}
-	\label{tb:t2k-perf}
-\end{table}
+%その性能を表\ref{tb:t2k-perf}に示す。
+%
+%\begin{table}[htb]
+	%\begin{center}
+	%\begin{tabular}{|l|l|l|}
+%\hline \hline
+%\multicolumn{1}{|c|}{区分} & \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
+%\hline \hline
+%計算ノード & CPU & quad-core Opteron 2.3GHz $\times$ 4台 \\
+%& CPUコア数 & 16 cores \\
+%& CPUメモリ & 32GB \\
+%& OS & Linux 2.6.18 \\
+%& コンパイラ & GCC 4.1.2 \\
+%& MPIソフトウェア & MVAPICH2 1.4.1 \\
+%\hline
+%並列ネットワーク & ネットワーク & Infiniband 4$\times$DDR \\
+%& 1本当たりのピーク性能(片方向) & 2GB/s \\
+%& トポロジ & Fat-Tree \\\hline
+%全体システム構成 & 総ノード数 & 648台 \\
+%& CPUピーク性能 & 95.4TFLOPS \\
+%& ファイルシステム & 800TB(Lustre, RAID-6) \\\hline
+	%\end{tabular}
+	%\end{center}
+ 	%\caption{T2K-Tsukubaの性能概要}
+	%\label{tb:t2k-perf}
+%\end{table}
 
 今回は、この研究のために学際開拓プログラムに申し込み、T2K-Tsukubaを利用させていただいた。
 一度に利用できる最大ノード数は32台となった。
