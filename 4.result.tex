@@ -325,9 +325,9 @@ $N$の値が大きいほど問題を細かく分けているといえる。
 24時間以内に実行が終了したのは$N$が3から8のときであった。
 実行時間は$N=3$で最も長く、$N=6$で最も短く、$N=8$で再び長くなっている。
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
 	\begin{center}
-\includegraphics[width=\linewidth]{exp3-result.eps}
+\includegraphics[width=0.5\textwidth]{exp3-result.eps}
 	\end{center}
 	\caption{各$N$における実行時間}
 	\label{pic:allN-time}
@@ -358,20 +358,21 @@ $N=8$では約50分ほどとなっている。
 $N=6$の場合が、最も問題を分ける細かさと通信回数のバランスが取れており、
 結果として最も実行時間が速くなったのだと考えられる。
 
-\begin{figure}[htb]
-	%\begin{minipage}{0.5\hsize}
-		\begin{center}
-\includegraphics{exp4-2-tie.eps}
-		\end{center}
+\begin{figure}[!htb]
+	%\begin{minipage}{0.4\hsize}
+		\centering
+		%\begin{left}
+\includegraphics[width=0.5\textwidth]{exp4-2-tie.eps}
+		%\end{left}
 		\caption{$N=3, \ 6, \ 8$における各ワーカーの全体実行時間}
 		\label{pic:time4all-process}
 	%\end{minipage}
 \end{figure}
-\begin{figure}[htb]
-	%\begin{minipage}{0.5\hsize}
-		\begin{center}
-\includegraphics{exp4-2-tic.eps}
-		\end{center}
+\begin{figure}[!htb]
+	%\begin{minipage}{0.4\hsize}
+		\centering
+\includegraphics[width=0.5\textwidth]{exp4-2-tic.eps}
+		%\end{right}
 		\caption{$N=3, \ 6, \ 8$における各ワーカーの総通信時間}
 		\label{pic:time4all-only-correspondence}
 	%\end{minipage}
