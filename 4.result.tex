@@ -112,23 +112,24 @@ $6$ & $23$ & $6.0 \times 10^{31}$ \\
 このアルゴリズムをプログラム化し、一般のコンピュータで実行したところ、
 実行時間は3次の場合約0.05秒、4次の場合約0.12秒、5次の場合約217時間となった。
 
-ここで表\ref{tab:bohemian-rhapsody}に、3次の場合に対する4次の場合、4次の場合に対する5次の場合、3次の場合に対する5次の場合
-それぞれの理想実行時間と実際の実行時間の比を示す。
+%%%MOVED TO THINK%%%
+%ここで表\ref{tab:bohemian-rhapsody}に、3次の場合に対する4次の場合、4次の場合に対する5次の場合、3次の場合に対する5次の場合
+%それぞれの理想実行時間と実際の実行時間の比を示す。
 
-\begin{table}[htb]
-	\begin{center}
-	\begin{tabular}{|l||r|r|}
-\hline
-& \multicolumn{1}{|c|}{理想実行時間の比} & \multicolumn{1}{|c|}{実際の実行時間の比} \\
-\hline\hline
-3次の場合に対する4次の場合 & $1.0 \times 10^6$  & $2.4 \times 10^0$ \\\hline
-4次の場合に対する5次の場合 & $7.5 \times 10^8$  & $6.5 \times 10^6$ \\\hline
-3次の場合に対する5次の場合 & $7.7 \times 10^{14}$  & $1.6 \times 10^7$ \\\hline
-	\end{tabular}
-	\end{center}
-	\caption{理想実行時間の比と実際の実行時間の比}
-	\label{tab:bohemian-rhapsody}
-\end{table}
+%\begin{table}[htb]
+%	\begin{center}
+%	\begin{tabular}{|l||r|r|}
+%\hline
+%& \multicolumn{1}{|c|}{理想実行時間の比} & \multicolumn{1}{|c|}{実際の実行時間の比} \\
+%\hline\hline
+%3次の場合に対する4次の場合 & $1.0 \times 10^6$  & $2.4 \times 10^0$ \\\hline
+%4次の場合に対する5次の場合 & $7.5 \times 10^8$  & $6.5 \times 10^6$ \\\hline
+%3次の場合に対する5次の場合 & $7.7 \times 10^{14}$  & $1.6 \times 10^7$ \\\hline
+%	\end{tabular}
+%	\end{center}
+%	\caption{理想実行時間の比と実際の実行時間の比}
+%	\label{tab:bohemian-rhapsody}
+%\end{table}
 
 %しかし、
 %式\ref{eqn:prog4-exectime-3-vs-4-ideal}(3次の場合と4次の場合の理想実行時間の比)・
@@ -137,9 +138,9 @@ $6$ & $23$ & $6.0 \times 10^{31}$ \\
 %式\ref{eqn:prog4-exectime-4-vs-5-rhapsody}(4次の場合と5次の場合の実際の実行時間の比)・
 %式\ref{eqn:prog4-exectime-3-vs-5-ideal}(3次の場合と5次の場合の理想実行時間の比)・
 %式\ref{eqn:prog4-exectime-3-vs-5-rhapsody}(3次の場合と5次の場合の実際の実行時間の比)
-表よりこの三者の実行時間の比率が正しくないことが分かる。
-これは、3次と4次の場合の実行時間がとても短く、
-時間計測で誤差が発生してしまったことが原因だと考えられる。
+%表よりこの三者の実行時間の比率が正しくないことが分かる。
+%これは、3次と4次の場合の実行時間がとても短く、
+%時間計測で誤差が発生してしまったことが原因だと考えられる。
 
 %\begin{eqnarray}
 %\label{eqn:prog4-exectime-3-vs-4-ideal}
@@ -192,3 +193,69 @@ $6$ & $23$ & $6.0 \times 10^{31}$ \\
 \item マスタの$N$段目までの総当たり処理が終了したらマスタが全ワーカーに終了を伝え、
 実行を終了する。
 \end{enumerate}
+
+第四次アルゴリズムの草刈り法により、ワーカーがマスタから
+受け取る陣によってワーカーの処理時間が異なる。
+また、マスタがワーカーに配る陣数は、
+$N$の値が小さいほど少なく、
+$N$の値が大きいほど多い。
+つまり、
+$N$の値が小さいほど問題を荒く分けているといえ、
+$N$の値が大きいほど問題を細かく分けているといえる。
+
+プログラムは、$N$を1から14まで変化させ並列実行した。
+各$N$における実行時間のグラフを図\ref{pic:allN-time}に示す。
+24時間以内に実行が終了したのは$N$が3から8のときであった。
+実行時間は$N=3$で最も長く、$N=6$で最も短く、$N=8$で再び長くなっている。
+
+\begin{figure}[htb]
+	\begin{center}
+\includegraphics[width=\linewidth]{exp3-result.eps}
+	\end{center}
+	\caption{各$N$における実行時間}
+	\label{pic:allN-time}
+\end{figure}
+
+
+図\ref{pic:time4all-process}に
+$N=3, \ 6, \ 8$
+における各ワーカーの全体実行時間(通信含む主要処理時間)を示す。
+$N=6, \  8$では各ワーカーの全体実行時間がほぼすべて同じであるが、
+$N=3$ではばらつきが出ている。
+これは、$N=3$では問題が細かく分けられていなく、
+マスタから受け取る陣によってワーカーの処理時間が異なることにより、
+結果として各ワーカーの全体実行時間がつり合うように
+仕事を分散できていないからだと考えられる。
+
+また、図\ref{pic:time4all-only-correspondence}に
+$N=3, \ 6, \ 8$
+における各ワーカーの総通信時間(通信のみ)を示す。
+$N=3, \ 6$では各ワーカーの総通信時間がほぼ0だが、
+$N=8$では約50分ほどとなっている。
+これは、$N=8$では問題が細かく分けられすぎていて、
+マスタがワーカーに陣を配る回数が多くなり、
+結果として通信をする際の
+固定的処理時間が長くなってしまったからだと考えられる。
+
+上記を考えると、
+$N=6$の場合が、最も問題を分ける細かさと通信回数のバランスが取れており、
+結果として最も実行時間が速くなったのだと考えられる。
+
+\begin{figure}[htb]
+	%\begin{minipage}{0.5\hsize}
+		\begin{center}
+\includegraphics{exp4-2-tie.eps}
+		\end{center}
+		\caption{$N=3, \ 6, \ 8$における各ワーカーの全体実行時間}
+		\label{pic:time4all-process}
+	%\end{minipage}
+\end{figure}
+\begin{figure}[htb]
+	%\begin{minipage}{0.5\hsize}
+		\begin{center}
+\includegraphics{exp4-2-tic.eps}
+		\end{center}
+		\caption{$N=3, \ 6, \ 8$における各ワーカーの総通信時間}
+		\label{pic:time4all-only-correspondence}
+	%\end{minipage}
+\end{figure}

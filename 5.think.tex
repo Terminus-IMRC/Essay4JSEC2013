@@ -1,1 +1,27 @@
 \section{考察}
+\begin{itemize}
+\item 第四次アルゴリズムにおける理想実行時間の比と実際の実行時間の比の相違について。
+	ここで表\ref{tab:bohemian-rhapsody}に、3次の場合に対する4次の場合、4次の場合に対する5次の場合、3次の場合に対する5次の場合
+	それぞれの理想実行時間と実際の実行時間の比を示す。
+
+\begin{table}[htb]
+	\begin{center}
+	\begin{tabular}{|l||r|r|}
+\hline
+& \multicolumn{1}{|c|}{理想実行時間の比} & \multicolumn{1}{|c|}{実際の実行時間の比} \\
+\hline\hline
+3次の場合に対する4次の場合 & $1.0 \times 10^6$  & $2.4 \times 10^0$ \\\hline
+4次の場合に対する5次の場合 & $7.5 \times 10^8$  & $6.5 \times 10^6$ \\\hline
+3次の場合に対する5次の場合 & $7.7 \times 10^{14}$  & $1.6 \times 10^7$ \\\hline
+	\end{tabular}
+	\end{center}
+	\caption{理想実行時間の比と実際の実行時間の比}
+	\label{tab:bohemian-rhapsody}
+\end{table}
+
+表よりこの三者の実行時間の比率が正しくないことが分かる。
+これは、3次と4次の場合の実行時間がとても短く、
+時間計測で誤差が発生してしまったことが原因だと考えられる。
+
+
+\end{itemize}

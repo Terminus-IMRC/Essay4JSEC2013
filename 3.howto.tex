@@ -59,58 +59,58 @@ OS & Linux 3.2.46 \\
 なお、実行には2CPUコアのうち1CPUコアのみを用いた。
 
 
-\subsection{T2K-Tsukubaの利用}
-T2K-Tsukubaとは、筑波大学に置かれているスーパーコンピュータの1つである。
-その性能を表\ref{tb:t2k-perf}に示す。
+%\subsection{T2K-Tsukubaの利用}
+%T2K-Tsukubaとは、筑波大学に置かれているスーパーコンピュータの1つである。
+%その性能を表\ref{tb:t2k-perf}に示す。
+%
+%\begin{table}[htb]
+%	\begin{center}
+%	\begin{tabular}{|l|l|l|}
+%\hline \hline
+%\multicolumn{1}{|c|}{区分} & \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
+%\hline \hline
+%計算ノード & CPU & quad-core Opteron 2.3GHz $\times$ 4台 \\
+%& CPUコア数 & 16 cores \\
+%& CPUメモリ & 32GB \\
+%& OS & Linux 2.6.18 \\
+%& コンパイラ & GCC 4.1.2 \\
+%& MPIソフトウェア & MVAPICH2 1.4.1 \\
+%\hline
+%並列ネットワーク & ネットワーク & Infiniband 4$\times$DDR \\
+%& 1本当たりのピーク性能(片方向) & 2GB/s \\
+%& トポロジ & Fat-Tree \\\hline
+%全体システム構成 & 総ノード数 & 648台 \\
+%& CPUピーク性能 & 95.4TFLOPS \\
+%& ファイルシステム & 800TB(Lustre, RAID-6) \\\hline
+%	\end{tabular}
+%	\end{center}
+% 	\caption{T2K-Tsukubaの性能概要}
+%	\label{tb:t2k-perf}
+%\end{table}
 
-\begin{table}[htb]
-	\begin{center}
-	\begin{tabular}{|l|l|l|}
-\hline \hline
-\multicolumn{1}{|c|}{区分} & \multicolumn{1}{|c|}{項目} & \multicolumn{1}{|c|}{仕様} \\
-\hline \hline
-計算ノード & CPU & quad-core Opteron 2.3GHz $\times$ 4台 \\
-& CPUコア数 & 16 cores \\
-& CPUメモリ & 32GB \\
-& OS & Linux 2.6.18 \\
-& コンパイラ & GCC 4.1.2 \\
-& MPIソフトウェア & MVAPICH2 1.4.1 \\
-\hline
-並列ネットワーク & ネットワーク & Infiniband 4$\times$DDR \\
-& 1本当たりのピーク性能(片方向) & 2GB/s \\
-& トポロジ & Fat-Tree \\\hline
-全体システム構成 & 総ノード数 & 648台 \\
-& CPUピーク性能 & 95.4TFLOPS \\
-& ファイルシステム & 800TB(Lustre, RAID-6) \\\hline
-	\end{tabular}
-	\end{center}
- 	\caption{T2K-Tsukubaの性能概要}
-	\label{tb:t2k-perf}
-\end{table}
-
-今回は、この研究のために学際開拓プログラムに申し込み、T2K-Tsukubaを利用させていただいた。
-一度に利用できる最大ノード数は32台となった。
-また、最大連続実行可能時間は24時間となっており、実行時間がこの時間を超えた場合、
-そのジョブは強制終了される。
-
-並列方式にはマスタ・ワーカー型並列を用いた。
-実行は全$16 \times 32 = 512$プロセスの内、1プロセスをマスタとしその他をワーカーとした。
-
-T2K-Tsukubaでのプログラム実行の手順は以下の様になっている。
-\begin{enumerate}
-	\item ログインノードにSSH(Secure shell)を用いてログインする。
-	\item プログラムを{\tt mpicc}コマンドでコンパイルし、
-	実行ファイルを作成する。 \label{enum:howtouse-t2k:compile}
-	\item 以下の手順を行うシェルスクリプトを書き、{\tt qsub2}コマンドにて
- 	ジョブをサブミットする。
-  	\begin{enumerate}
-   		\item プログラム実行に使用するノードの台数と最大実行時間
-     		を指定する。
-   		\item 使用するノードをリストアップするスクリプトを
-     		実行する。
-       		\item {\tt mpirun\_rsh}コマンドでプログラム
-         	(手順\ref{enum:howtouse-t2k:compile}で作成した実行ファイル)
-          	を実行する。
-   	\end{enumerate}
-    	\item その後、ジョブは逐次自動実行される。
-\end{enumerate}
+%今回は、この研究のために学際開拓プログラムに申し込み、T2K-Tsukubaを利用させていただいた。
+%一度に利用できる最大ノード数は32台となった。
+%また、最大連続実行可能時間は24時間となっており、実行時間がこの時間を超えた場合、
+%そのジョブは強制終了される。
+%
+%並列方式にはマスタ・ワーカー型並列を用いた。
+%実行は全$16 \times 32 = 512$プロセスの内、1プロセスをマスタとしその他をワーカーとした。
+%
+%T2K-Tsukubaでのプログラム実行の手順は以下の様になっている。
+%\begin{enumerate}
+%	\item ログインノードにSSH(Secure shell)を用いてログインする。
+%	\item プログラムを{\tt mpicc}コマンドでコンパイルし、
+%	実行ファイルを作成する。 \label{enum:howtouse-t2k:compile}
+%	\item 以下の手順を行うシェルスクリプトを書き、{\tt qsub2}コマンドにて
+% 	ジョブをサブミットする。
+%  	\begin{enumerate}
+%   		\item プログラム実行に使用するノードの台数と最大実行時間
+%     		を指定する。
+%   		\item 使用するノードをリストアップするスクリプトを
+%     		実行する。
+%       		\item {\tt mpirun\_rsh}コマンドでプログラム
+%         	(手順\ref{enum:howtouse-t2k:compile}で作成した実行ファイル)
+%          	を実行する。
+%   	\end{enumerate}
+%    	\item その後、ジョブは逐次自動実行される。
+%\end{enumerate}

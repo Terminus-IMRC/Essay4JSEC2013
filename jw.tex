@@ -1,13 +1,25 @@
 \documentclass[a4j,12pt]{jarticle}
-\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfm,dvipdfmx,dvips]{graphicx}
 \usepackage{amssymb}
 \usepackage{url}
-\title{魔方陣全解出力アルゴリズムの改良と \\ 超並列計算環境でのプログラム実行}
+%\title{魔方陣全解出力アルゴリズムの改良と \\ 超並列計算環境でのプログラム実行}
+\title{魔方陣全解出力アルゴリズムの改良}
 \author{
 	茨城県立並木中等教育学校 4年 \\ 杉崎 行優
 }
 \date{}
+
+%From http://d.hatena.ne.jp/Rion778/touch/20091002/1254482262
+\makeatother
+\def\linesparpage#1{
+    \baselineskip=\textheight
+    \divide\baselineskip by #1
+}
+
 \begin{document}
+
+\linesparpage{40}
+
 \maketitle
 
 \thispagestyle{empty}
